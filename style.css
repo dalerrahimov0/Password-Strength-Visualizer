@@ -1,31 +1,79 @@
+/* Modern, professional dark theme with subtle accents */
 :root {
---bg: #0b0f14;
---panel: #131b24;
---text: #e6eef6;
---muted: #a9b6c6;
---weak: #c23b22;
---ok: #e0a100;
---strong: #2ca02c;
---excellent: #2188ff;
-}
-* { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
-.container { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
-.sub { color: var(--muted); margin-top: -6px; }
-.input-row { display: flex; gap: 8px; margin: 16px 0 10px; }
-.input-row input { flex: 1; padding: 14px 12px; border-radius: 12px; border: 1px solid #223142; background: var(--panel); color: var(--text); }
-.input-row button { padding: 0 14px; border-radius: 12px; border: 1px solid #223142; background: #172230; color: var(--text); cursor: pointer; }
-.input-row button:hover { filter: brightness(1.1); }
-.meter { height: 12px; background: #11202f; border-radius: 999px; overflow: hidden; border: 1px solid #223142; }
-.bar { height: 100%; width: 0%; background: var(--weak); transition: width 200ms ease, background 200ms ease; }
-.meter-label { margin: 8px 0 18px; color: var(--muted); }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-.card { background: var(--panel); border: 1px solid #223142; border-radius: 16px; padding: 16px; }
-.card h2 { margin: 0 0 10px; font-size: 1.05rem; }
-.stats { display: grid; gap: 6px; }
-.stat-label { color: var(--muted); }
-.checks, .tips { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
-footer { margin-top: 24px; color: var(--muted); }
-.success { color: var(--strong); }
-.warn { color: var(--ok); }
-.fail { color: var(--weak); }
+    --bg: #0b1016;
+    --bg-soft: radial-gradient(1200px 600px at 20% -10%, #15314a33 0%, transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, #3b1f8a22 0%, transparent 60%),
+    #0b1016;
+    --panel: #111a23;
+    --panel-elev: #12202e;
+    --text: #e9f1fb;
+    --muted: #9fb0c3;
+    --border: #213244;
+    --accent: #47b4ff; /* blue */
+    --accent-2: #6be6c1; /* teal */
+    --weak: #f04d3d;
+    --ok: #f2b300;
+    --strong: #39d07b;
+    --excellent: #5aa2ff;
+    --shadow: 0 10px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Inter", sans-serif; background: var(--bg-soft); color: var(--text); }
+    .container { max-width: 980px; margin: 0 auto; padding: 36px 20px 64px; }
+    
+    
+    /* Header */
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: linear-gradient(90deg, #1b2836, #1a2430); border: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+    .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 10px #47b4ff66; }
+    
+    
+    h1 { margin: 12px 0 6px; font-size: 28px; letter-spacing: 0.2px; }
+    .sub { color: var(--muted); margin-top: 0; max-width: 64ch; }
+    
+    
+    /* Inputs */
+    .input-row { display: flex; gap: 8px; margin: 18px 0 10px; }
+    .input-row input { flex: 1; padding: 14px 12px; border-radius: 14px; border: 1px solid var(--border); background: var(--panel); color: var(--text); outline: none; box-shadow: var(--shadow); }
+    .input-row input:focus { border-color: #2b4866; box-shadow: 0 0 0 3px #3b79ff33, var(--shadow); }
+    .button, .input-row button { padding: 0 14px; border-radius: 14px; border: 1px solid var(--border); background: linear-gradient(180deg, #172130, #121c28); color: var(--text); cursor: pointer; box-shadow: var(--shadow); transition: transform .06s ease, filter .15s ease; }
+    .input-row button:hover, .button:hover { filter: brightness(1.08); }
+    .input-row button:active, .button:active { transform: translateY(1px); }
+    
+    
+    /* Controls */
+    .controls { display: flex; align-items: center; gap: 10px; margin: 8px 0 16px; color: var(--muted); }
+    .controls label { font-size: 13px; }
+    .controls select { background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; box-shadow: var(--shadow); }
+    
+    
+    /* Meter */
+    .meter { height: 14px; background: #0f1a25; border-radius: 999px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+    .bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--weak), var(--ok), var(--strong), var(--excellent)); filter: saturate(1.1); transition: width 220ms ease, filter 200ms ease; }
+    .meter::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, #ffffff0a 0 6px, transparent 6px 12px); pointer-events: none; }
+    .meter-label { margin: 10px 0 18px; color: var(--muted); }
+    
+    
+    /* Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .card { position: relative; background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); }
+    .card::before { content: ""; position: absolute; inset: 0; border-radius: 18px; padding: 1px; background: linear-gradient(135deg, #2e4361, #3c285e); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; opacity: .35; }
+    .card h2 { margin: 0 0 10px; font-size: 1.05rem; }
+    .stats { display: grid; gap: 6px; }
+    .stat-label { color: var(--muted); }
+    .checks, .tips { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+    footer { margin-top: 26px; color: var(--muted); }
+    
+    
+    /* Status colors */
+    .success { color: var(--strong); }
+    .warn { color: var(--ok); }
+    .fail { color: var(--weak); }
+    
+    
+    /* Responsive tweaks */
+    @media (max-width: 520px) {
+    .controls { flex-wrap: wrap; gap: 8px 12px; }
+    .input-row { flex-direction: column; }
+    .input-row button { height: 40px; }
+    }
