@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Password Strength Visualizer</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main class="container">
+<h1>🔒 Password Strength Visualizer</h1>
+<p class="sub">Type a password below to see live analysis. Runs 100% in your browser.</p>
+
+
+<div class="input-row">
+<input id="pwd" type="password" placeholder="Enter password" autofocus />
+<button id="toggle" aria-label="Toggle visibility">Show</button>
+</div>
+
+
+<div class="meter">
+<div id="meter-bar" class="bar"></div>
+</div>
+<div id="meter-label" class="meter-label">Start typing…</div>
+
+
+<section class="grid">
+<div class="card">
+<h2>Entropy & Crack Time</h2>
+<div class="stats">
+<div><span class="stat-label">Entropy:</span> <span id="entropy">–</span></div>
+<div><span class="stat-label">Crack time:</span> <span id="crack">–</span></div>
+</div>
+<div class="assumption">Assuming 10<sup>10</sup> guesses/sec (editable in code).</div>
+</div>
+
+
+<div class="card">
+<h2>Checks</h2>
+<ul id="checks" class="checks"></ul>
+</div>
+
+
+<div class="card">
+<h2>Tips</h2>
+<ul id="tips" class="tips"></ul>
+</div>
+</section>
+
+
+<footer>
+<small>Demo tool for learning. Do not reuse real passwords.</small>
+</footer>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
