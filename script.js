@@ -1,6 +1,12 @@
 /* Password Strength Visualizer – vanilla JS */
 (function () {
-  const GUESSES_PER_SECOND = 1e10; // adjust as desired
+  // ---- Rate handling (Attack model toggle) ----
+  // We read guesses/sec from the <select id="attack"> in index.html.
+  function getRate() {
+    const sel = document.getElementById('attack');
+    const val = sel ? Number(sel.value) : 1e10; // default to offline 10^10
+    return isFinite(val) && val > 0 ? val : 1e10;
+  }
 
   const DICT = [
     'password','letmein','welcome','admin','dragon','monkey','iloveyou','qwerty','asdf','zxcv','baseball','football','login','abc123',
@@ -8,6 +14,7 @@
   ];
   const SEQUENCES = ['abcdefghijklmnopqrstuvwxyz','qwertyuiop','asdfghjkl','zxcvbnm','0123456789'];
 
+  // ---- DOM refs ----
   const el = (id) => document.getElementById(id);
   const pwd = el('pwd');
   const toggle = el('toggle');
@@ -17,15 +24,24 @@
   const crackEl = el('crack');
   const checksEl = el('checks');
   const tipsEl = el('tips');
+  const attack = el('attack'); // new dropdown
+  const rateSpan = el('rate'); // span in the "Assuming ..." line
 
-  toggle.addEventListener('click', () => {
-    pwd.type = pwd.type === 'password' ? 'text' : 'password';
-    toggle.textContent = pwd.type === 'password' ? 'Show' : 'Hide';
-  });
+  // ---- UI events ----
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      pwd.type = pwd.type === 'password' ? 'text' : 'password';
+      toggle.textContent = pwd.type === 'password' ? 'Show' : 'Hide';
+    });
+  }
 
-  pwd.addEventListener('input', () => analyze(pwd.value));
+  if (pwd) pwd.addEventListener('input', () => analyze(pwd.value));
+  if (attack) attack.addEventListener('change', () => analyze(pwd.value));
+
+  // initial render
   analyze('');
 
+  // ---- Core analysis ----
   function analyze(pw) {
     const findings = [];
     const tips = [];
@@ -122,8 +138,11 @@
     const entropyBits = Math.max(0, rawEntropy - penalty);
     entropyEl.textContent = `${entropyBits.toFixed(1)} bits`;
 
-    const crackSeconds = Math.pow(2, Math.max(0, entropyBits)) / GUESSES_PER_SECOND;
+    const crackSeconds = Math.pow(2, Math.max(0, entropyBits)) / getRate();
     crackEl.textContent = humanizeDuration(crackSeconds);
+
+    // Update displayed rate text
+    if (rateSpan) rateSpan.textContent = formatRate(getRate());
 
     // Render findings & tips
     renderList(checksEl, findings.map(([t, cls]) => ({ text: t, cls })));
@@ -135,6 +154,7 @@
     renderList(tipsEl, tips.map(t => ({ text: t })));
   }
 
+  // ---- Helpers ----
   function renderList(ul, items) {
     ul.innerHTML = '';
     for (const item of items) {
@@ -194,5 +214,12 @@
 
   function getCSS(varName) {
     return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+  }
+
+  function formatRate(n) {
+    // If n is an exact power of 10, show 10^x. Otherwise show x,xxx guesses/sec.
+    const log10 = Math.log10(n);
+    if (Number.isInteger(log10)) return `10^${log10} guesses/sec`;
+    return `${n.toLocaleString()} guesses/sec`;
   }
 })();
