@@ -12,6 +12,11 @@ A lightweight, client-side web app that evaluates password strength **in real ti
 
 ---
 
+# Password Strength Visualizer
+
+🔗 [Live Demo](https://dalerrahimov0.github.io/Password-Strength-Visualizer/)
+
+
 ## ✨ Features
 
 - **Live strength meter** (Weak / Okay / Strong / Excellent)
