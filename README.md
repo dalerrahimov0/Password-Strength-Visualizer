@@ -2,7 +2,7 @@
 
 A lightweight, client-side web app that evaluates password strength **in real time** and explains *why* a password is weak or strong. It estimates entropy, shows a color-coded meter, and provides a crack-time estimate with clear, actionable tips.
 
-[![Live Demo](https://dalerrahimov0.github.io/Password-Strength-Visualizer/))](#) 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-brightgreen)](https://dalerrahimov0.github.io/Password-Strength-Visualizer/) 
 [![Made with HTML](https://img.shields.io/badge/HTML-5-E34F26?logo=html5&logoColor=white)](#)
 [![CSS](https://img.shields.io/badge/CSS-3-1572B6?logo=css3&logoColor=white)](#)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=000)](#)
